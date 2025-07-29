@@ -14,13 +14,13 @@ namespace api.Models
         [Required]
         [Phone]
         [StringLength(9, MinimumLength = 9)]
-        public override string PhoneNumber { get; set; }
+        public override string? PhoneNumber { get; set; }
 
         [Required]
-        public UserRole Role { get; set; }
+        public required UserRole Role { get; set; }
 
         [Required]
-        [RegularExpression(@"^\d{6}$", ErrorMessage = "")]
-        public string PIN { get; set; }
+        [RegularExpression(@"^\d{6}$", ErrorMessage = "Invalid PIN format")]
+        public required string PIN { get; set; }
     }
 }
