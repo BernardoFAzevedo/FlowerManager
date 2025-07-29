@@ -29,8 +29,8 @@ namespace api.Service
 
             return new NewUserDto
             {
-                UserName = user.UserName,
-                Email = user.Email,
+                UserName = user.UserName!,
+                Email = user.Email!,
                 Token = _tokenService.CreateToken(user)
             };
         }
@@ -77,9 +77,9 @@ namespace api.Service
             return users.Select(user => new UserDto
             {
                 Id = user.Id,
-                UserName = user.UserName,
-                Email = user.Email,
-                PhoneNumber = user.PhoneNumber,
+                UserName = user.UserName!,
+                Email = user.Email!,
+                PhoneNumber = user.PhoneNumber!,
                 Role = user.Role.ToString()
             });
         }
