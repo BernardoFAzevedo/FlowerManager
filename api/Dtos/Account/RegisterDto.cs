@@ -5,18 +5,18 @@ namespace api.Dtos.Account
     public class RegisterDto
     {
         [Required]
-        public string UserName { get; set; }
+        public required string UserName { get; set; }
 
         [Required]
         [EmailAddress]
-        public string Email { get; set; }
+        public required string Email { get; set; }
 
         [Required]
         [Phone]
-        public string PhoneNumber { get; set; }
+        public required string PhoneNumber { get; set; }
 
         [Required]
         [MinLength(4)]
-        public string PIN { get; set; }
+        public required string PIN { get; set; }
     }
 }
