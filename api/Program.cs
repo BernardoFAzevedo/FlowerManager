@@ -11,6 +11,10 @@ using Microsoft.OpenApi.Models;
 using FluentValidation;
 using api.Validators;
 using System.Text;
+using api.Services.Interfaces;
+using api.Repository.Interfaces;
+using api.Services;
+using api.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -100,7 +104,8 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
 builder.Services.AddValidatorsFromAssemblyContaining<RegisterDtoValidator>();
-
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 var app = builder.Build();
 

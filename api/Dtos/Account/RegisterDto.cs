@@ -16,7 +16,7 @@ namespace api.Dtos.Account
         public required string PhoneNumber { get; set; }
 
         [Required]
-        [MinLength(4)]
+        [MinLength(6)]
         public required string PIN { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace api.Models
         public required UserRole Role { get; set; }
 
         [Required]
-        [RegularExpression(@"^\d{6}$", ErrorMessage = "Invalid PIN format")]
+        [StringLength(44)]
         public required string PIN { get; set; }
     }
 }
