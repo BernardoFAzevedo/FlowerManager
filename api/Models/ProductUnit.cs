@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace api.Models
 {
-    public class Unit
+    public class ProductUnit
     {
         public int Id { get; set; }
 

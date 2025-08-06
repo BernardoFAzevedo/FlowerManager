@@ -20,7 +20,8 @@ namespace api.Data
         }
 
         public DbSet<ProductCategory> ProductCategories { get; set; }
-
+        
+        public DbSet<ProductUnit> ProductUnits { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -52,6 +53,17 @@ namespace api.Data
                     entity.HasKey(c => c.Id);
 
                     entity.Property(c => c.Name)
+                    .IsRequired()
+                    .HasMaxLength(50);
+                });
+
+            builder.Entity<ProductUnit>(entity =>
+                {
+                    entity.ToTable("ProductUnits");
+
+                    entity.HasKey(u => u.Id);
+
+                    entity.Property(u => u.Name)
                     .IsRequired()
                     .HasMaxLength(50);
                 });
