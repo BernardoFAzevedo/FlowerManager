@@ -31,8 +31,7 @@ namespace api.Controllers
             try
             {
                 var category = await _service.CreateAsync(dto);
-                var result = CreatedAtAction(nameof(GetById), new { id = category.Id }, category);
-                return Ok(category);
+                return Ok(dto);
             }
             catch (InvalidOperationException)
             {

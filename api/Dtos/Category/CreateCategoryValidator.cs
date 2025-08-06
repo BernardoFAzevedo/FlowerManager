@@ -1,7 +1,6 @@
-using api.Dtos.Category;
 using FluentValidation;
 
-namespace api.Validators
+namespace api.Dtos.Category
 {
     public class CreateCategoryValidator : AbstractValidator<CreateCategoryDto>
     {

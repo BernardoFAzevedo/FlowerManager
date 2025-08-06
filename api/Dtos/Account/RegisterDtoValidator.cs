@@ -1,7 +1,6 @@
-using api.Dtos.Account;
 using FluentValidation;
 
-namespace api.Validators
+namespace api.Dtos.Account
 {
     public class RegisterDtoValidator : AbstractValidator<RegisterDto>
     {
