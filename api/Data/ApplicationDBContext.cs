@@ -19,6 +19,9 @@ namespace api.Data
 
         }
 
+        public DbSet<ProductCategory> ProductCategories { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -29,7 +32,7 @@ namespace api.Data
 
             builder.Entity<AppUser>()
                 .Property(u => u.PIN)
-                .HasMaxLength(6)
+                .HasMaxLength(44)
                 .IsRequired();
 
             builder.Entity<AppUser>()
@@ -41,6 +44,17 @@ namespace api.Data
                 new IdentityRole { Name = "Admin", NormalizedName = "ADMIN" },
                 new IdentityRole { Name = "Manager", NormalizedName = "MANAGER" }
             );
+
+            builder.Entity<ProductCategory>(entity =>
+                {
+                    entity.ToTable("ProductCategories");
+
+                    entity.HasKey(c => c.Id);
+
+                    entity.Property(c => c.Name)
+                    .IsRequired()
+                    .HasMaxLength(50);
+                });
         }
 
     }

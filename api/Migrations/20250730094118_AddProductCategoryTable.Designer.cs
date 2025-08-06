@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using api.Data;
 
@@ -11,9 +12,11 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250730094118_AddProductCategoryTable")]
+    partial class AddProductCategoryTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,13 +54,13 @@ namespace api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "42cb12e6-2add-4061-a185-1a1f090e996e",
+                            Id = "ca31c24c-d7f9-48ce-abb5-2a3a8cf2ab27",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "aabfb326-067a-4a73-87cd-efa4f21b9bdb",
+                            Id = "9a97a57a-277f-4bef-b7d1-ba4ae664fcf8",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
@@ -204,8 +207,8 @@ namespace api.Migrations
 
                     b.Property<string>("PIN")
                         .IsRequired()
-                        .HasMaxLength(44)
-                        .HasColumnType("nvarchar(44)");
+                        .HasMaxLength(6)
+                        .HasColumnType("nvarchar(6)");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
