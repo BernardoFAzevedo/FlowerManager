@@ -9,12 +9,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using FluentValidation;
-using api.Validators;
 using System.Text;
 using api.Services.Interfaces;
 using api.Repository.Interfaces;
 using api.Services;
-using api.Repositories;
+using api.Dtos.Account;
+using api.Repository;
+using api.Dtos.Unit;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -106,6 +107,9 @@ builder.Services.AddFluentValidationClientsideAdapters();
 builder.Services.AddValidatorsFromAssemblyContaining<RegisterDtoValidator>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IUnitRepository, UnitRepository>();
+builder.Services.AddScoped<IUnitService, UnitService>();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateUnitValidator>();
 
 var app = builder.Build();
 

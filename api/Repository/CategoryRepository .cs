@@ -3,7 +3,7 @@ using api.Repository.Interfaces;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace api.Repositories
+namespace api.Repository
 {
     public class CategoryRepository : ICategoryRepository
     {
