@@ -20,8 +20,10 @@ namespace api.Data
         }
 
         public DbSet<ProductCategory> ProductCategories { get; set; }
-        
+
         public DbSet<ProductUnit> ProductUnits { get; set; }
+
+        public DbSet<Product> Products { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -66,6 +68,20 @@ namespace api.Data
                     entity.Property(u => u.Name)
                     .IsRequired()
                     .HasMaxLength(50);
+                });
+
+            builder.Entity<Product>(entity =>
+                {
+                    entity.Property(p => p.UnitPrice).HasColumnType("decimal(18,2)");
+                    entity.HasOne(p => p.ProductCategory)
+                        .WithMany()
+                        .HasForeignKey(p => p.ProductCategoryId)
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    entity.HasOne(p => p.ProductUnit)
+                        .WithMany()
+                        .HasForeignKey(p => p.ProductUnitId)
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
         }
 
