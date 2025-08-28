@@ -82,6 +82,8 @@ namespace api.Data
                         .WithMany()
                         .HasForeignKey(p => p.ProductUnitId)
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    entity.HasQueryFilter(p => p.IsActive);
                 });
         }
 

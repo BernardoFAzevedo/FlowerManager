@@ -1,4 +1,5 @@
 using api.Dtos.Product;
+using api.Dtos.Common;
 
 namespace api.Services.Interfaces
 {
@@ -9,5 +10,7 @@ namespace api.Services.Interfaces
         Task<ProductDto> CreateAsync(CreateProductDto dto);
         Task<ProductDto?> UpdateAsync(int id, UpdateProductDto dto);
         Task<bool> DeleteAsync(int id);
+        Task<bool> RestoreAsync(int id);
+        Task<PagedResult<ProductDto>> GetPagedAsync(PaginationQuery query);
     }
 }

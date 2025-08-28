@@ -1,6 +1,7 @@
 using api.Dtos.Product;
 using api.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using api.Dtos.Common;
 
 namespace api.Controllers
 {
@@ -11,8 +12,8 @@ namespace api.Controllers
         private readonly IProductService _service = service;
 
         [HttpGet]
-        public async Task<IActionResult> GetAll() =>
-            Ok(await _service.GetAllAsync());
+        public async Task<IActionResult> GetAll([FromQuery] PaginationQuery query)
+    => Ok(await _service.GetPagedAsync(query));
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
@@ -60,7 +61,7 @@ namespace api.Controllers
         {
             var success = await _service.DeleteAsync(id);
             if (!success) return NotFound();
-            return NoContent();
+            return Ok(new { message = "Product deactivated" });
         }
     }
 
@@ -72,5 +73,5 @@ namespace api.Controllers
     // - Busca por nome ou descrição
     // - Soft delete (marcar como inativo ao invés de excluir)
     // - Remover ou adicionar Stock
-    
+
 }

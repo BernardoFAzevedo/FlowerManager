@@ -2,6 +2,7 @@ using api.Dtos.Product;
 using api.Models;
 using api.Repository.Interfaces;
 using api.Services.Interfaces;
+using api.Dtos.Common;
 
 namespace api.Services
 {
@@ -13,6 +14,9 @@ namespace api.Services
         private readonly IProductRepository _productRepository = productRepository;
         private readonly ICategoryRepository _categoryRepository = categoryRepository;
         private readonly IUnitRepository _unitRepository = unitRepository;
+
+        private const int DEFAULT_PAGE_SIZE = 10;
+        private const int DEFAULT_NPAGES = 1;
 
         public async Task<IEnumerable<ProductDto>> GetAllAsync()
         {
@@ -132,8 +136,46 @@ namespace api.Services
             var product = await _productRepository.GetByIdAsync(id);
             if (product == null) return false;
 
-            _productRepository.Delete(product);
+            product.IsActive = false;
+            _productRepository.Update(product);
             return await _productRepository.SaveChangesAsync();
+        }
+
+        public async Task<bool> RestoreAsync(int id)
+        {
+            var product = await _productRepository.GetByIdIncludingInactiveAsync(id);
+            if (product == null) return false;
+            product.IsActive = true;
+            _productRepository.Update(product);
+            return await _productRepository.SaveChangesAsync();
+        }
+
+        public async Task<PagedResult<ProductDto>> GetPagedAsync(PaginationQuery query)
+        {
+            var page = query?.Page ?? DEFAULT_NPAGES;
+            var pageSize = query?.PageSize ?? DEFAULT_PAGE_SIZE;
+
+            var paged = await _productRepository.GetPagedAsync(page, pageSize);
+
+            return new PagedResult<ProductDto>
+            {
+                Items = paged.Items.Select(p => new ProductDto
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Description = p.Description,
+                    UnitPrice = p.UnitPrice,
+                    StockNow = p.StockNow,
+                    ProductCategoryId = p.ProductCategoryId,
+                    ProductCategoryName = p.ProductCategory?.Name,
+                    ProductUnitId = p.ProductUnitId,
+                    ProductUnitName = p.ProductUnit?.Name,
+                    Supplier = p.Supplier
+                }),
+                TotalCount = paged.TotalCount,
+                Page = paged.Page,
+                PageSize = paged.PageSize
+            };
         }
     }
 }
